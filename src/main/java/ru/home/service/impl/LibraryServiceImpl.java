@@ -1,4 +1,4 @@
-package ru.home.service;
+package ru.home.service.impl;
 
 import ru.home.model.Book;
 import ru.home.model.BorrowedBook;
@@ -6,18 +6,20 @@ import ru.home.model.User;
 import ru.home.repository.BookRepository;
 import ru.home.repository.LibraryCardRepository;
 import ru.home.repository.UserRepository;
+import ru.home.service.LibraryService;
+import ru.home.service.UserService;
 import ru.home.util.TestData;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LibraryServiceImp implements LibraryService {
+public class LibraryServiceImpl implements LibraryService, UserService {
     private final BookRepository BOOK_REPOSITORY;
     private final UserRepository USER_REPOSITORY;
     private final LibraryCardRepository LIBRARY_SERVICE;
 
-    public LibraryServiceImp() {
+    public LibraryServiceImpl() {
         this.BOOK_REPOSITORY = new BookRepository();
         this.USER_REPOSITORY = new UserRepository();
         this.LIBRARY_SERVICE = new LibraryCardRepository();
@@ -68,13 +70,6 @@ public class LibraryServiceImp implements LibraryService {
     }
 
     @Override
-    public void listAllUsers() {
-        for (User user : USER_REPOSITORY.listUsers()) {
-            System.out.println(user);
-        }
-    }
-
-    @Override
     public void displayAllBorrowedBooks() {
         for (BorrowedBook borrowedBook : LIBRARY_SERVICE.displayBorrowedBookList()) {
             System.out.println(borrowedBook);
@@ -84,5 +79,23 @@ public class LibraryServiceImp implements LibraryService {
     @Override
     public void displayAllLibraryCards() {
         LIBRARY_SERVICE.displayAllLibraryCards();
+    }
+
+    @Override
+    public void createUser(Long id, String name, String email, String type) {
+        USER_REPOSITORY.addUser(USER_REPOSITORY.createUser(id, name, email, type));
+        System.out.printf("User with id %d is successfully created\n", id);
+    }
+
+    @Override
+    public void removeUser(Long userId) {
+        USER_REPOSITORY.removeUser(userId);
+    }
+
+    @Override
+    public void listAllUsers() {
+        for (User user : USER_REPOSITORY.listUsers()) {
+            System.out.println(user);
+        }
     }
 }

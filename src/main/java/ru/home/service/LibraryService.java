@@ -15,8 +15,6 @@ public interface LibraryService {
 
     void displayAllAuthors();
 
-    void listAllUsers();
-
     void displayAllBorrowedBooks();
 
     void displayAllLibraryCards();
