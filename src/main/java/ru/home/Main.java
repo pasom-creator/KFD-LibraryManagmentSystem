@@ -1,6 +1,6 @@
 package ru.home;
 
-import ru.home.controller.Menu;
+import ru.home.controller.MainMenu;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,5 +22,6 @@ public class Main {
 //        service.removeUser(2001L);
 //        service.listAllUsers();
 
+        new MainMenu().mainMenu();
     }
 }
