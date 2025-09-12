@@ -25,7 +25,7 @@ A working console application that manages:
 
 
 ## Структура приложения
-
+```
 home
  ┣ 📂controller
  ┃ ┣ 📜BookControlMenu.java
@@ -54,7 +54,7 @@ home
  ┃ ┣ 📜ConsoleReader.java
  ┃ ┗ 📜TestData.java
  ┗ 📜Main.java
-
+```
 
 ## Краткое описание приложения
 

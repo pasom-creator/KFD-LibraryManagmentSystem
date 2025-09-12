@@ -24,15 +24,15 @@ public class LibraryCardRepository {
         }
     }
 
-    public void removeLibraryCard(Long cardId) {
-        if (!LIBRARY_CARD_STORAGE.isEmpty()) {
+    public int removeLibraryCard(Long cardId) {
+        if (!LIBRARY_CARD_STORAGE.isEmpty()&&LIBRARY_CARD_STORAGE.containsKey(cardId)) {
             if (LIBRARY_CARD_STORAGE.get(cardId).getBorrowedBooks().isEmpty()) {
                 LIBRARY_CARD_STORAGE.remove(cardId);
-                System.out.println("Library card is successfully deleted");
-                return;
+                return 1;
             }
-            System.out.println("You need to return all borrowed books first");
+            return 2;
         }
+        return 0;
     }
 
     public void displayAllLibraryCards() {

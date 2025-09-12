@@ -1,6 +1,7 @@
 package ru.home.controller;
 
 import ru.home.service.impl.LibraryServiceImpl;
+import ru.home.util.ConsoleReader;
 
 public class LibraryServiceMenu extends GeneralMenu {
     private final LibraryServiceImpl LIBRARY_SERVICE;
@@ -29,13 +30,13 @@ public class LibraryServiceMenu extends GeneralMenu {
         GENERAL_MAP.put("0", menu::mainMenu);
     }
 
-
     private void addLibraryCard() {
 
     }
 
     private void deleteLibraryCard() {
-
+        Long libraryCardId = getLibraryCardId();
+        LIBRARY_SERVICE.removeLibraryCard(libraryCardId);
     }
 
     private void displayAllLibraryCards() {
@@ -43,11 +44,15 @@ public class LibraryServiceMenu extends GeneralMenu {
     }
 
     private void borrowBook() {
-
+        String isbn = getIsbn();
+        Long libraryCardId = getLibraryCardId();
+        System.out.println(LIBRARY_SERVICE.borrowBook(isbn,libraryCardId));
     }
 
     private void returnBook() {
-
+        String isbn = getIsbn();
+        Long libraryCardId = getLibraryCardId();
+        System.out.println(LIBRARY_SERVICE.returnBook(isbn,libraryCardId));
     }
 
     private void displayAllBorrowedBooks() {
@@ -56,5 +61,19 @@ public class LibraryServiceMenu extends GeneralMenu {
 
     private void findOverdueBooks() {
         LIBRARY_SERVICE.findOverdueBooks();
+    }
+
+    private static String getIsbn() {
+        return ConsoleReader.askQuestion("Enter book ISBN: ");
+    }
+
+    private static Long getLibraryCardId() {
+        Long libraryCardId = null;
+        try {
+            libraryCardId = Long.parseLong(ConsoleReader.askQuestion("Enter library card ID: "));
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Wrong input, only digits allowed");
+        }
+        return libraryCardId;
     }
 }

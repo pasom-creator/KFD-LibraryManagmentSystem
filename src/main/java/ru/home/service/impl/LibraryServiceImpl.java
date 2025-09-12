@@ -36,7 +36,14 @@ public class LibraryServiceImpl implements LibraryService, UserService, BookServ
 
     @Override
     public void removeLibraryCard(Long cardId) {
-
+        int answer = LIBRARY_SERVICE.removeLibraryCard(cardId);
+        if (answer == 1) {
+            System.out.println("Library card is successfully deleted");
+        } else if (answer == 2) {
+            System.out.println("You need to return all borrowed books first");
+        } else {
+            System.out.println("Wrong library card id");
+        }
     }
 
     @Override
@@ -108,7 +115,7 @@ public class LibraryServiceImpl implements LibraryService, UserService, BookServ
     @Override
     public void findBookByIsbn(String isbn) {
         Book book = BOOK_REPOSITORY.findBookByIsbn(isbn);
-        if(Objects.nonNull(book)) {
+        if (Objects.nonNull(book)) {
             System.out.println(book);
         } else {
             System.out.printf("No book with ISBN %s in library\n", isbn);

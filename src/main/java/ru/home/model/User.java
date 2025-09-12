@@ -17,14 +17,6 @@ public abstract class User {
         return userId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
     public abstract int getBooksLimit();
 
     public abstract int getBorrowDaysLimit();
