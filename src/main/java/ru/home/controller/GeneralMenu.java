@@ -1,9 +1,10 @@
 package ru.home.controller;
 
+import ru.home.util.ConsoleReader;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import static ru.home.controller.ConsoleReader.askQuestion;
+import java.util.Objects;
 
 public abstract class GeneralMenu {
     protected final Map<String,Runnable> GENERAL_MAP;
@@ -15,17 +16,21 @@ public abstract class GeneralMenu {
     }
 
     public void start() {
-        Runnable runnable = null;
-        while(true) {
+        while (true) {
             try {
-                runnable = GENERAL_MAP.get(askQuestion(options));
-                break;
+                Runnable runnable = null;
+                runnable = GENERAL_MAP.get(ConsoleReader.askQuestion(options));
+
+                if(Objects.nonNull(runnable)) {
+                    runnable.run();
+                } else {
+                    System.out.println("Can enter only digits. Try again\n");
+                }
             } catch (NullPointerException e) {
                 System.out.println("Wrong option selected");
             }
+
         }
-        runnable.run();
-        start();
     }
 
 }

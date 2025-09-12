@@ -2,10 +2,12 @@ package ru.home.service.impl;
 
 import ru.home.model.Book;
 import ru.home.model.BorrowedBook;
+import ru.home.model.LibraryCard;
 import ru.home.model.User;
 import ru.home.repository.BookRepository;
 import ru.home.repository.LibraryCardRepository;
 import ru.home.repository.UserRepository;
+import ru.home.service.BookService;
 import ru.home.service.LibraryService;
 import ru.home.service.UserService;
 import ru.home.util.TestData;
@@ -13,8 +15,9 @@ import ru.home.util.TestData;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-public class LibraryServiceImpl implements LibraryService, UserService {
+public class LibraryServiceImpl implements LibraryService, UserService, BookService {
     private final BookRepository BOOK_REPOSITORY;
     private final UserRepository USER_REPOSITORY;
     private final LibraryCardRepository LIBRARY_SERVICE;
@@ -24,6 +27,21 @@ public class LibraryServiceImpl implements LibraryService, UserService {
         this.USER_REPOSITORY = new UserRepository();
         this.LIBRARY_SERVICE = new LibraryCardRepository();
         TestData.loadTestData(BOOK_REPOSITORY, USER_REPOSITORY, LIBRARY_SERVICE);
+    }
+
+    @Override
+    public void addLibraryCard(LibraryCard libraryCard) {
+
+    }
+
+    @Override
+    public void removeLibraryCard(Long cardId) {
+
+    }
+
+    @Override
+    public void displayAllLibraryCards() {
+        LIBRARY_SERVICE.displayAllLibraryCards();
     }
 
     @Override
@@ -47,8 +65,26 @@ public class LibraryServiceImpl implements LibraryService, UserService {
     }
 
     @Override
+    public void displayAllBorrowedBooks() {
+        for (BorrowedBook borrowedBook : LIBRARY_SERVICE.displayBorrowedBookList()) {
+            System.out.println(borrowedBook);
+        }
+    }
+
+    @Override
     public void findOverdueBooks() {
         LIBRARY_SERVICE.findOverdueBooks();
+    }
+
+    @Override
+    public void addBook(Book book) {
+        BOOK_REPOSITORY.addBook(book);
+        System.out.printf("Book %s is added to library\n", book.getTitle());
+    }
+
+    @Override
+    public void removeBook(String isbn) {
+        BOOK_REPOSITORY.removeBook(isbn);
     }
 
     @Override
@@ -61,7 +97,7 @@ public class LibraryServiceImpl implements LibraryService, UserService {
     }
 
     @Override
-    public void displayAllAuthors() {
+    public void displayAllBookAuthors() {
         List<String> authorList = new ArrayList<>(BOOK_REPOSITORY.listAllAuthors());
         Collections.sort(authorList);
         for (String string : authorList) {
@@ -70,15 +106,35 @@ public class LibraryServiceImpl implements LibraryService, UserService {
     }
 
     @Override
-    public void displayAllBorrowedBooks() {
-        for (BorrowedBook borrowedBook : LIBRARY_SERVICE.displayBorrowedBookList()) {
-            System.out.println(borrowedBook);
+    public void findBookByIsbn(String isbn) {
+        Book book = BOOK_REPOSITORY.findBookByIsbn(isbn);
+        if(Objects.nonNull(book)) {
+            System.out.println(book);
+        } else {
+            System.out.printf("No book with ISBN %s in library\n", isbn);
         }
     }
 
     @Override
-    public void displayAllLibraryCards() {
-        LIBRARY_SERVICE.displayAllLibraryCards();
+    public void findBookByAuthor(String author) {
+        List<Book> list = BOOK_REPOSITORY.findBookByAuthor(author);
+        if (!list.isEmpty()) {
+            for (Book book : list) {
+                System.out.println(book);
+            }
+        } else {
+            System.out.printf("There is no %s in library\n", author);
+        }
+    }
+
+    @Override
+    public void findBookByTitle(String title) {
+        Book book = BOOK_REPOSITORY.findBookByTitle(title);
+        if (Objects.nonNull(book)) {
+            System.out.println(book);
+        } else {
+            System.out.printf("No book with this name %s find\n", title);
+        }
     }
 
     @Override

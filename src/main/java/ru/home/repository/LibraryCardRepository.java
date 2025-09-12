@@ -71,7 +71,8 @@ public class LibraryCardRepository {
         for (Map.Entry<Long, LibraryCard> bookEntry : LIBRARY_CARD_STORAGE.entrySet()) {
             for (BorrowedBook borrowedBook : bookEntry.getValue().getBorrowedBooks()) {
                 long dayLimit = ChronoUnit.DAYS.between(borrowedBook.getBorrowDate(), borrowedBook.getReturnDate());
-                if (dayLimit > bookEntry.getValue().getUser().getBorrowDaysLimit()) {
+                if (dayLimit > bookEntry.getValue().getUser().getBorrowDaysLimit()
+                    || borrowedBook.getReturnDate().isBefore(LocalDate.now())) {
                     System.out.println(bookEntry.getKey() + " : " + borrowedBook);
                 }
             }
@@ -84,5 +85,10 @@ public class LibraryCardRepository {
             list.addAll(bookEntry.getValue().getBorrowedBooks());
         }
         return list;
+    }
+
+    //This method is used to upload testing data only
+    public Map<Long, LibraryCard> getMap() {
+        return LIBRARY_CARD_STORAGE;
     }
 }

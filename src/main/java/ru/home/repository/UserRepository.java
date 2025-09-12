@@ -35,7 +35,7 @@ public class UserRepository {
     }
 
     public void removeUser(Long userId) {
-        if (!USER_LIST.isEmpty()) {
+        if (!USER_LIST.isEmpty() && USER_LIST.containsKey(userId)) {
             USER_LIST.remove(userId);
             System.out.printf("User id %d is successfully deleted\n", userId);
         } else {

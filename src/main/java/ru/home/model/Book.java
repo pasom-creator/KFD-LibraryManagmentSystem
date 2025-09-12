@@ -2,7 +2,7 @@ package ru.home.model;
 
 import java.util.Objects;
 
-public class Book implements Comparable<Book>{
+public class Book implements Comparable<Book> {
     private String isbn;
     private String title;
     private String author;

@@ -1,6 +1,7 @@
 package ru.home.util;
 
 import ru.home.model.Book;
+import ru.home.model.BorrowedBook;
 import ru.home.model.Faculty;
 import ru.home.model.Guest;
 import ru.home.model.LibraryCard;
@@ -9,6 +10,8 @@ import ru.home.model.User;
 import ru.home.repository.BookRepository;
 import ru.home.repository.LibraryCardRepository;
 import ru.home.repository.UserRepository;
+
+import java.time.LocalDate;
 
 public final class TestData {
     private TestData() {
@@ -72,5 +75,11 @@ public final class TestData {
         // "Вишневый сад" и "Евгений Онегин"
         libraryCardRepository.borrowBook("978-5-699-12456-3", 3L); // Вишневый сад
         bookRepository.changeBookStatus("978-5-699-12456-3");
+
+        libraryCardRepository.getMap().get(1L).getBorrowedBooks().add(
+                new BorrowedBook("978-5-389-23456-7",
+                        LocalDate.of(2025,9,01),
+                        LocalDate.of(2025,9,10)));
+        bookRepository.changeBookStatus("978-5-389-23456-7");
     }
 }
