@@ -33,7 +33,7 @@ public class BookControlMenu extends GeneralMenu {
 
     private void addBook() {
         String isbn = ConsoleReader.askQuestion("""
-                You are going to create and add book to library.
+                You are going to add book to library.
                 Enter ISBN (Any format: 8903-928392-IOMD-940): 
                 """);
         String title = ConsoleReader.askQuestion("Enter book title: ");

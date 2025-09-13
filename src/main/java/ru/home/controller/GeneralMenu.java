@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public abstract class GeneralMenu {
-    protected final Map<String,Runnable> GENERAL_MAP;
+    protected final Map<String, Runnable> GENERAL_MAP;
     protected final String options;
 
     public GeneralMenu(String options) {
@@ -21,10 +21,10 @@ public abstract class GeneralMenu {
                 Runnable runnable = null;
                 runnable = GENERAL_MAP.get(ConsoleReader.askQuestion(options));
 
-                if(Objects.nonNull(runnable)) {
+                if (Objects.nonNull(runnable)) {
                     runnable.run();
                 } else {
-                    System.out.println("Can enter only digits. Try again\n");
+                    System.out.println("Can enter only digits from the list. Try again\n");
                 }
             } catch (NullPointerException e) {
                 System.out.println("Wrong option selected");

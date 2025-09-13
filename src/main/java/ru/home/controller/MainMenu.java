@@ -38,7 +38,7 @@ public class MainMenu extends GeneralMenu {
     }
 
     private void libraryServiceMenu() {
-        new LibraryServiceMenu(this,LIBRARY_SERVICE).start();
+        new LibraryServiceMenu(this, LIBRARY_SERVICE).start();
     }
 
 }

@@ -31,7 +31,14 @@ public class LibraryServiceMenu extends GeneralMenu {
     }
 
     private void addLibraryCard() {
-
+        Long libraryCardId = getLibraryCardId();
+        long userId = 0L;
+        try {
+            userId = Long.parseLong(ConsoleReader.askQuestion("Enter user ID: "));
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Wrong input, only digits allowed");
+        }
+        LIBRARY_SERVICE.createLibraryCard(libraryCardId, userId);
     }
 
     private void deleteLibraryCard() {
@@ -46,13 +53,13 @@ public class LibraryServiceMenu extends GeneralMenu {
     private void borrowBook() {
         String isbn = getIsbn();
         Long libraryCardId = getLibraryCardId();
-        System.out.println(LIBRARY_SERVICE.borrowBook(isbn,libraryCardId));
+        LIBRARY_SERVICE.borrowBook(isbn, libraryCardId);
     }
 
     private void returnBook() {
         String isbn = getIsbn();
         Long libraryCardId = getLibraryCardId();
-        System.out.println(LIBRARY_SERVICE.returnBook(isbn,libraryCardId));
+        System.out.println(LIBRARY_SERVICE.returnBook(isbn, libraryCardId));
     }
 
     private void displayAllBorrowedBooks() {

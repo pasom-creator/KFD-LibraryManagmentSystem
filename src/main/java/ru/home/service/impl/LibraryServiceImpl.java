@@ -2,7 +2,6 @@ package ru.home.service.impl;
 
 import ru.home.model.Book;
 import ru.home.model.BorrowedBook;
-import ru.home.model.LibraryCard;
 import ru.home.model.User;
 import ru.home.repository.BookRepository;
 import ru.home.repository.LibraryCardRepository;
@@ -30,8 +29,11 @@ public class LibraryServiceImpl implements LibraryService, UserService, BookServ
     }
 
     @Override
-    public void addLibraryCard(LibraryCard libraryCard) {
-
+    public void createLibraryCard(Long libraryCardId, Long userId) {
+        LIBRARY_SERVICE.addLibraryCard(
+                LIBRARY_SERVICE.createLibraryCard(libraryCardId, USER_REPOSITORY.getUser(userId))
+        );
+        System.out.printf("Library card %d is successfully created\n", libraryCardId);
     }
 
     @Override
@@ -52,14 +54,17 @@ public class LibraryServiceImpl implements LibraryService, UserService, BookServ
     }
 
     @Override
-    public boolean borrowBook(String isbn, Long cardId) {
+    public void borrowBook(String isbn, Long cardId) {
         if (BOOK_REPOSITORY.isBookAvailable(isbn)) {
             if (LIBRARY_SERVICE.borrowBook(isbn, cardId)) {
                 BOOK_REPOSITORY.changeBookStatus(isbn);
-                return true;
+                System.out.printf("Book %s is borrowed successfully\n", isbn);
+            } else {
+                System.out.println("Превышен лимит на взятие книг");
             }
+        } else {
+            System.out.println("This book is unavailable");
         }
-        return false;
     }
 
     @Override

@@ -2,6 +2,7 @@ package ru.home.repository;
 
 import ru.home.model.BorrowedBook;
 import ru.home.model.LibraryCard;
+import ru.home.model.User;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Objects;
 
 public class LibraryCardRepository {
     private final Map<Long, LibraryCard> LIBRARY_CARD_STORAGE;
@@ -18,14 +20,20 @@ public class LibraryCardRepository {
         this.LIBRARY_CARD_STORAGE = new HashMap<>();
     }
 
+    public LibraryCard createLibraryCard(Long libraryCardId, User user) {
+        return new LibraryCard(libraryCardId, user);
+    }
+
     public void addLibraryCard(LibraryCard libraryCard) {
         if (!LIBRARY_CARD_STORAGE.containsKey(libraryCard.getId())) {
             LIBRARY_CARD_STORAGE.put(libraryCard.getId(), libraryCard);
+        } else {
+            throw new IllegalArgumentException("Library card id %d is already exist".formatted(libraryCard.getId()));
         }
     }
 
     public int removeLibraryCard(Long cardId) {
-        if (!LIBRARY_CARD_STORAGE.isEmpty()&&LIBRARY_CARD_STORAGE.containsKey(cardId)) {
+        if (!LIBRARY_CARD_STORAGE.isEmpty() && LIBRARY_CARD_STORAGE.containsKey(cardId)) {
             if (LIBRARY_CARD_STORAGE.get(cardId).getBorrowedBooks().isEmpty()) {
                 LIBRARY_CARD_STORAGE.remove(cardId);
                 return 1;
@@ -43,7 +51,8 @@ public class LibraryCardRepository {
 
     public boolean borrowBook(String isbn, Long cardId) {
         LibraryCard libraryCard = LIBRARY_CARD_STORAGE.get(cardId);
-        if (libraryCard.getBorrowedBooks().size() < libraryCard.getUser().getBooksLimit()) {
+        if (Objects.nonNull(libraryCard)
+            && (libraryCard.getBorrowedBooks().size() < libraryCard.getUser().getBooksLimit())) {
             libraryCard.getBorrowedBooks().add(
                     new BorrowedBook(
                             isbn,

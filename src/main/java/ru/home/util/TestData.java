@@ -76,10 +76,17 @@ public final class TestData {
         libraryCardRepository.borrowBook("978-5-699-12456-3", 3L); // Вишневый сад
         bookRepository.changeBookStatus("978-5-699-12456-3");
 
+        //Check overdue option
         libraryCardRepository.getMap().get(1L).getBorrowedBooks().add(
                 new BorrowedBook("978-5-389-23456-7",
-                        LocalDate.of(2025,9,01),
-                        LocalDate.of(2025,9,10)));
+                        LocalDate.of(2025, 9, 1),
+                        LocalDate.of(2025, 9, 10)));
         bookRepository.changeBookStatus("978-5-389-23456-7");
+
+        libraryCardRepository.getMap().get(2L).getBorrowedBooks().add(
+                new BorrowedBook("978-5-271-89013-0",
+                        LocalDate.now(),
+                        LocalDate.of(2025, 9, 30)));
+        bookRepository.changeBookStatus("978-5-271-89013-0");
     }
 }

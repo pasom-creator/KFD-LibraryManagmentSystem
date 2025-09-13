@@ -1,15 +1,13 @@
 package ru.home.service;
 
-import ru.home.model.LibraryCard;
-
 public interface LibraryService {
-    void addLibraryCard(LibraryCard libraryCard);
+    void createLibraryCard(Long libraryCardId, Long userId);
 
     void removeLibraryCard(Long cardId);
 
     void displayAllLibraryCards();
 
-    boolean borrowBook(String isbn, Long cardId);
+    void borrowBook(String isbn, Long cardId);
 
     boolean returnBook(String isbn, Long cardId);
 

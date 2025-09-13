@@ -20,16 +20,16 @@ public class BookRepository {
         if (!LIBRARY_STORAGE.containsKey(book.getIsbn())) {
             LIBRARY_STORAGE.put(book.getIsbn(), book);
         } else {
-            throw new IllegalArgumentException("User id %s is already exist".formatted(book.getIsbn()));
+            throw new IllegalArgumentException("Book with ISBN %s is already exist".formatted(book.getIsbn()));
         }
     }
 
     public void removeBook(String isbn) {
         if (!LIBRARY_STORAGE.isEmpty() && LIBRARY_STORAGE.containsKey(isbn)) {
             LIBRARY_STORAGE.remove(isbn);
-            System.out.printf("User id %s is successfully deleted\n", isbn);
+            System.out.printf("Book with ISBN %s is successfully deleted\n", isbn);
         } else {
-            System.out.printf("User id %s doesn't find in database\n", isbn);
+            System.out.printf("Book with ISBN %s doesn't find in database\n", isbn);
         }
     }
 

@@ -34,6 +34,14 @@ public class UserRepository {
         }
     }
 
+    public User getUser(Long usedId) {
+        if (!USER_LIST.isEmpty() && USER_LIST.containsKey(usedId)) {
+            return USER_LIST.get(usedId);
+        } else {
+            throw new IllegalArgumentException("User id %d is not exist".formatted(usedId));
+        }
+    }
+
     public void removeUser(Long userId) {
         if (!USER_LIST.isEmpty() && USER_LIST.containsKey(userId)) {
             USER_LIST.remove(userId);

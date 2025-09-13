@@ -29,14 +29,14 @@ public class UserControlMenu extends GeneralMenu {
         long id = 0;
         try {
             id = Long.parseLong(askQuestion("""
-                    You are going to create and add user.
+                    You are going to create user.
                     Enter 4 digits user id(For example, 2001 or 4309): """));
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Wrong input");
         }
         String name = askQuestion("Enter user name: ");
         String email = askQuestion("Enter user email: ");
-        builderUser(id,name,email);
+        builderUser(id, name, email);
     }
 
     public void removeUser() {
@@ -55,15 +55,15 @@ public class UserControlMenu extends GeneralMenu {
         LIBRARY_SERVICE.listAllUsers();
     }
 
-    private void builderUser(Long id,String name,String email) {
+    private void builderUser(Long id, String name, String email) {
         String USER_TYPE_MENU = """
                 Choose user type: 
                     1 - Guest
                     2 - Student
                     3 - Faculty
                 """;
-        Map<Integer,String> userType = Map.of(
-                1,"guest",
+        Map<Integer, String> userType = Map.of(
+                1, "guest",
                 2, "student",
                 3, "faculty");
         int userTypeId = 0;
