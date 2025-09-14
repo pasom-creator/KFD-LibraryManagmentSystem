@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class UserRepository {
     private final Map<Long, User> USER_LIST;
@@ -30,16 +31,12 @@ public class UserRepository {
         if (!USER_LIST.containsKey(user.getUserId())) {
             USER_LIST.put(user.getUserId(), user);
         } else {
-            throw new IllegalArgumentException("User id %d is already exist".formatted(user.getUserId()));
+            System.out.printf("User id %d is already exist\n", user.getUserId());
         }
     }
 
-    public User getUser(Long usedId) {
-        if (!USER_LIST.isEmpty() && USER_LIST.containsKey(usedId)) {
-            return USER_LIST.get(usedId);
-        } else {
-            throw new IllegalArgumentException("User id %d is not exist".formatted(usedId));
-        }
+    public Optional<User> getUser(Long userId) {
+        return Optional.ofNullable(USER_LIST.get(userId));
     }
 
     public void removeUser(Long userId) {

@@ -20,7 +20,7 @@ public class BookRepository {
         if (!LIBRARY_STORAGE.containsKey(book.getIsbn())) {
             LIBRARY_STORAGE.put(book.getIsbn(), book);
         } else {
-            throw new IllegalArgumentException("Book with ISBN %s is already exist".formatted(book.getIsbn()));
+            System.out.printf("Book with ISBN %s is already exist\n", book.getIsbn());
         }
     }
 

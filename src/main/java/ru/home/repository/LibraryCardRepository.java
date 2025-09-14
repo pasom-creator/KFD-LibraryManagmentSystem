@@ -28,7 +28,7 @@ public class LibraryCardRepository {
         if (!LIBRARY_CARD_STORAGE.containsKey(libraryCard.getId())) {
             LIBRARY_CARD_STORAGE.put(libraryCard.getId(), libraryCard);
         } else {
-            throw new IllegalArgumentException("Library card id %d is already exist".formatted(libraryCard.getId()));
+            System.out.printf("Library card id %d is already exist\n", libraryCard.getId());
         }
     }
 

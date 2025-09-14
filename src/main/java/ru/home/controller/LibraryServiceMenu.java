@@ -31,12 +31,14 @@ public class LibraryServiceMenu extends GeneralMenu {
     }
 
     private void addLibraryCard() {
+        System.out.println("You are going to create library card. Enter from 1 to 4 digits.");
         Long libraryCardId = getLibraryCardId();
         long userId = 0L;
         try {
             userId = Long.parseLong(ConsoleReader.askQuestion("Enter user ID: "));
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Wrong input, only digits allowed");
+            System.out.println(e.getMessage());
+            return;
         }
         LIBRARY_SERVICE.createLibraryCard(libraryCardId, userId);
     }
@@ -75,11 +77,11 @@ public class LibraryServiceMenu extends GeneralMenu {
     }
 
     private static Long getLibraryCardId() {
-        Long libraryCardId = null;
+        long libraryCardId = 0L;
         try {
             libraryCardId = Long.parseLong(ConsoleReader.askQuestion("Enter library card ID: "));
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Wrong input, only digits allowed");
+            System.out.println(e.getMessage());
         }
         return libraryCardId;
     }

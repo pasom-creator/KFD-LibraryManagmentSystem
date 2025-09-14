@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class LibraryServiceImpl implements LibraryService, UserService, BookService {
     private final BookRepository BOOK_REPOSITORY;
@@ -30,10 +31,17 @@ public class LibraryServiceImpl implements LibraryService, UserService, BookServ
 
     @Override
     public void createLibraryCard(Long libraryCardId, Long userId) {
-        LIBRARY_SERVICE.addLibraryCard(
-                LIBRARY_SERVICE.createLibraryCard(libraryCardId, USER_REPOSITORY.getUser(userId))
-        );
-        System.out.printf("Library card %d is successfully created\n", libraryCardId);
+        Optional<User> optUser = USER_REPOSITORY.getUser(userId);
+        if (optUser.isPresent()) {
+            User user = optUser.get();
+            LIBRARY_SERVICE.addLibraryCard(
+                    LIBRARY_SERVICE.createLibraryCard(libraryCardId, user)
+            );
+            System.out.printf("Library card %d is successfully created\n", libraryCardId);
+        } else {
+            System.out.printf("User with id %d not found\n", userId);
+        }
+
     }
 
     @Override

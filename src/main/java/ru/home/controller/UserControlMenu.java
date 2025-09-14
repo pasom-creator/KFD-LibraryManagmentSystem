@@ -32,7 +32,8 @@ public class UserControlMenu extends GeneralMenu {
                     You are going to create user.
                     Enter 4 digits user id(For example, 2001 or 4309): """));
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Wrong input");
+            System.out.println(e.getMessage());
+            return;
         }
         String name = askQuestion("Enter user name: ");
         String email = askQuestion("Enter user email: ");
@@ -45,7 +46,8 @@ public class UserControlMenu extends GeneralMenu {
         try {
             id = Long.parseLong(askQuestion("You are going to delete user. Enter 4 digits user id: "));
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Wrong input");
+            System.out.println(e.getMessage());
+            return;
         }
 
         LIBRARY_SERVICE.removeUser(id);
@@ -71,7 +73,8 @@ public class UserControlMenu extends GeneralMenu {
         try {
             userTypeId = Integer.parseInt(askQuestion(USER_TYPE_MENU));
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Wrong input");
+            System.out.println(e.getMessage());
+            return;
         }
 
         LIBRARY_SERVICE.createUser(id, name, email, userType.get(userTypeId));
